@@ -11,8 +11,6 @@ router.post('/register',(req,res)=>{
     User.create(email,encryptedpwd,(err)=>{
         if(err) return res.status(400).json({message:'User already exists'});
         res.status(201).json({message:'User created'});
-
-        res.status(201).json({message:'User created'});
     });
 });
 

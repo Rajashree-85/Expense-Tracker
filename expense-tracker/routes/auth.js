@@ -1,17 +1,18 @@
-const express=require('express');
-const bcrypt=require('bcryptjs');
-const jsontoken=require('jsonwebtoken');
-const User=require('../models/userModel');
-const router=express.Router();
+// routes/auth.js
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/userModel');
+const router = express.Router();
 
-router.post('/register',(req,res)=>{
-    const {email,password}=req.body;
-    const encryptedpwd=bcrypt.hashSync(password,8);
+router.post('/register', (req, res) => {
+  const { email, password } = req.body;
+  const hashedPassword = bcrypt.hashSync(password, 8);
 
-    User.create(email,encryptedpwd,(err)=>{
-        if(err) return res.status(400).json({message:'User already exists'});
-        res.status(201).json({message:'User created'});
-    });
+  User.create(email, hashedPassword, (err) => {
+    if (err) return res.status(400).json({ message: 'User already exists' });
+    res.status(201).json({ message: 'User created' });
+  });
 });
 
 router.post('/login', (req, res) => {

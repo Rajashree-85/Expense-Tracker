@@ -65,14 +65,12 @@ async function addExpense() {
   const description = document.getElementById('description').value;
   const amount = parseFloat(document.getElementById('amount').value);
   const category = document.getElementById('category').value;
-  console.log(description);
 
   if(isNaN(amount)||amount<=0){
     alert("Please enter a valid number.");
     return;
   }
-  console.log("addExpense called");
-  alert("add called")
+
   const res = await fetch(`${API_URL}/expenses`, {
     method: 'POST',
     headers: {
@@ -83,7 +81,6 @@ async function addExpense() {
   });
 
   if (res.ok) {
-    console.log("method called");
     fetchExpenses();
     clearForm();
   } else {
@@ -113,10 +110,8 @@ async function updateExpense(id) {
     
       if (res.ok) {
         const expenses = await res.json();
-        console.log(expenses);
     
     const expense=expenses.find(exp=>exp.id===id);
-   console.log(expense);
     if(expense){
         document.getElementById('description').value=expense.description;
         document.getElementById('amount').value=expense.amount;
@@ -143,7 +138,6 @@ async function saveEditedExpense(){
         alert("Please enter a valid amount.");
         return;
     }
-    alert("put started");
     try{
     const res = await fetch(`${API_URL}/expenses/${editingExpenseId}`, {
         method: 'PUT',
@@ -156,12 +150,10 @@ async function saveEditedExpense(){
   console.log(res)
       if (res.ok) {
         fetchExpenses();  
-        console.log(editingExpenseId);
         editingExpenseId = null;  
         clearForm();
         document.getElementById('addButton').style.display='inline';
         document.getElementById('editButton').style.display='none';
-        console.log(editingExpenseId);
       } else {
         alert(`Failed to update expense: ${responseBody.message || 'Unknown error'}`);
     }

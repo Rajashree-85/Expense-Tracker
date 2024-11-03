@@ -31,6 +31,7 @@ body {
   
   .expense-item {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     margin: 10px 0;
   }
@@ -51,4 +52,8 @@ body {
     background-color: #0056b3;
   }
 
+  .buttons{ 
+    width:80px; 
+    display: flex; 
+  }
   

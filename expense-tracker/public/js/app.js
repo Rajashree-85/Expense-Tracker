@@ -1,5 +1,3 @@
-// js/app.js
-
 const API_URL = 'http://localhost:5000/api';
 let token = '';
 
@@ -9,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     token = savedToken;
     showExpenseTracker();
   }
+ document.getElementById('editButton').addEventListener('click', saveEditedExpense);
 });
 
 function toggleForm(form) {
@@ -129,7 +128,6 @@ async function updateExpense(id) {
     }}
     else{
       alert("Failed to load expense details");
-
     }
   }
 
@@ -168,7 +166,6 @@ async function saveEditedExpense(){
         alert(`Failed to update expense: ${responseBody.message || 'Unknown error'}`);
     }
 } catch (error) {
-  //console.log(error)
     alert(`An error occurred: ${error.message}`);
 }
 }
@@ -190,8 +187,10 @@ function displayExpenses(expenses) {
     item.classList.add('expense-item');
     item.innerHTML = `
       <span>${expense.description} - ₹${expense.amount} (${expense.category})</span>
+      <div class="buttons">
       <button onclick="updateExpense(${expense.id})">Edit</button>
       <button onclick="deleteExpense(${expense.id})">Delete</button>
+      </div>
     `;
     expensesList.appendChild(item);
   });

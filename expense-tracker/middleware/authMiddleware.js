@@ -5,7 +5,7 @@ const authMiddleware = (req, res, next) => {
 
   if (!token) return res.status(401).json({ message: 'Access denied' });
 
-  jwt.verify(token, 'your_secret_key', (err, decoded) => {
+  jwt.verify(token, 'qwerty', (err, decoded) => {
     if (err) return res.status(401).json({ message: 'Invalid token' });
     
     req.user = decoded;

@@ -208,4 +208,6 @@ function logout() {
   localStorage.removeItem('token');
   document.getElementById('expenseTracker').style.display = 'none';
   toggleForm('login');
+  document.getElementById('loginEmail').value='';
+  document.getElementById('loginPassword').value='';
 }

@@ -27,15 +27,14 @@
     </div>
 
     <div id="expenseTracker" style="display: none;">
-  
       <div>
         <input type="text" id="description" placeholder="Expense Description" required>
         <input type="number" id="amount" placeholder="Amount (₹)" required min="0">
-        <select id="category">
+        <select id="category" required>
           <option value="Food">Food</option>
           <option value="Transport">Transport</option>
           <option value="Groceries">Groceries</option>
-          <option value="Utilities">Utilities</option>
+          <option value="Utilities" selected>Utilities</option>
           <option value="Others">Others</option>
         </select>
         <button id="addButton" onclick="addExpense()">Add Expense</button>

@@ -147,7 +147,6 @@ async function saveEditedExpense(){
         },
         body: JSON.stringify({ description, amount, category })
       });
-  console.log(res)
       if (res.ok) {
         fetchExpenses();  
         editingExpenseId = null;  
@@ -165,7 +164,6 @@ async function saveEditedExpense(){
 function clearForm() {
       document.getElementById('description').value = '';
       document.getElementById('amount').value = '';
-      document.getElementById('category').value = '';
     }
 
 function displayExpenses(expenses) {

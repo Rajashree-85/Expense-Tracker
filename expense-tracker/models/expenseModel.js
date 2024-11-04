@@ -1,4 +1,3 @@
-// models/expenseModel.js
 const db = require('../config/db');
 
 const Expense = {

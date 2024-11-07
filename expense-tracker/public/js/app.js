@@ -1,6 +1,83 @@
 const API_URL = 'http://localhost:5000/api';
 let token = '';
 
+let presentLanguage=localStorage.getItem('language') ||'en';
+
+const words={
+en:{
+  title:"Indian Mini Expense Tracker",
+  register:"Register",
+  login:"Login",
+  email:"Email",
+  password:"Password",
+  alreadyHaveAccount: "Already have an account? Login here",
+  dontHaveAccount: "Don’t have an account? Register here",
+  expenseDescription: "Expense Description",
+  amount: "Amount (₹)",
+  category: "Category",
+  addExpense: "Add Expense",
+  editExpense: "Edit Expense",
+  expenses: "Expenses",
+  totalExpenses: "Total Expenses",
+  logout:"Logout",
+  registerButton: "Register",
+  loginButton:"Login",
+  logoutButton:"Logout"
+},
+hi:{
+  title:"भारतीय मिनी खर्च ट्रैकर",
+  register:"रजिस्टर करें",
+  login:"लॉगिन करें",
+  email:"ईमेल",
+  password:"पासवर्ड",
+  alreadyHaveAccount: "पहले से खाता है? यहाँ लॉगिन करें",
+  dontHaveAccount: "खाता नहीं है? यहाँ रजिस्टर करें",
+  expenseDescription: "खर्च का विवरण",
+  amount: "राशि (₹)",
+  category: "श्रेणी",
+  addExpense: "खर्च जोड़ें",
+  editExpense: "खर्च संपादित करें",
+  expenses: "खर्च",
+  totalExpenses: "कुल खर्च",
+  logout:"लॉगआउट",
+  registerButton: "रजिस्टर करें",
+  loginButton:"लॉगिन करें",
+  logoutButton:"लॉगआउट" 
+}
+}
+
+function changeLanguage(language){
+  localStorage.setItem('language',language);
+  presentLanguage=language;
+}
+
+function changeUI(){
+  document.getElementById('app').querySelector('h1').textContent=words[presentLanguage].title;
+  document.querySelector('#register h2').textContent=words[presentLanguage].register;
+  document.querySelector('#login h2').textContent=words[presentLanguage].login;
+  document.querySelector('#registerEmail').placeholder=words[presentLanguage].email;
+  document.querySelector('#registerPassword').placeholder=words[presentLanguage].password;
+  document.querySelector('#loginEmail').placeholder=words[presentLanguage].email;
+  document.querySelector('#loginPassword').placeholder=words[presentLanguage].password;
+  document.querySelector('#addButton').textContent=words[presentLanguage].addExpense;
+  document.querySelector('#editButton').textContent=words[presentLanguage].editExpense;
+  document.querySelector('#expenseTracker h3').textContent=words[presentLanguage].expenses;
+  document.querySelector('#totalAmount').textContent=words[presentLanguage].totalExpenses;
+  document.querySelector('#register p span').textContent=words[presentLanguage].alreadyHaveAccount;
+  document.querySelector('#login p span').textContent=words[presentLanguage].dontHaveAccount;
+  document.querySelector('#logout').textContent=words[presentLanguage].logout;
+  document.querySelector('#registerButton').textContent = words[presentLanguage].registerButton;
+  document.querySelector('#loginButton').textContent = words[presentLanguage].loginButton;
+  document.querySelector('#logoutButton').textContent =words[presentLanguage].logoutButton;
+  document.getElementById('#edit').textContent=words[presentLanguage].edit;
+  document.getElementById('#delete').textContent=words[presentLanguage].delete;
+}
+
+document.getElementById('langSelector').addEventListener('change',(err)=>{
+  changeLanguage(err.target.value);
+  changeUI();
+})
+
 document.addEventListener('DOMContentLoaded', () => {
   const savedToken = localStorage.getItem('token');
   if (savedToken) {
@@ -36,6 +113,11 @@ async function registerUser() {
 async function loginUser() {
   const email = document.getElementById('loginEmail').value;
   const password = document.getElementById('loginPassword').value;
+
+  if(!email || !password){
+    alert("Please enter your credentials");
+    return;
+  }
 
   const res = await fetch(`${API_URL}/auth/login`, {
     method: 'POST',
@@ -178,8 +260,8 @@ function displayExpenses(expenses) {
     item.innerHTML = `
       <span>${expense.description} - ₹${expense.amount} (${expense.category})</span>
       <div class="buttons">
-      <button onclick="updateExpense(${expense.id})">Edit</button>
-      <button onclick="deleteExpense(${expense.id})">Delete</button>
+      <button id="edit" onclick="updateExpense(${expense.id})">Edit</button>
+      <button id="delete" onclick="deleteExpense(${expense.id})">Delete</button>
       </div>
     `;
     expensesList.appendChild(item);

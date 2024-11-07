@@ -8,13 +8,20 @@
 </head>
 <body>
   <div id="app">
+    <div>
+      <label for="langSelector">Select Language: </label>
+      <select id="langSelector">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+      </select>
+    </div>
     <h1>Indian Mini Expense Tracker</h1>
     
     <div id="register" class="form-container">
       <h2>Register</h2>
       <input type="email" id="registerEmail" placeholder="Email" required>
       <input type="password" id="registerPassword" placeholder="Password" required>
-      <button onclick="registerUser()">Register</button>
+      <button id="registerButton" onclick="registerUser()">Register</button>
       <p>Already have an account? <span onclick="toggleForm('login')">Login here</span></p>
     </div>
 
@@ -22,11 +29,12 @@
       <h2>Login</h2>
       <input type="email" id="loginEmail" placeholder="Email" required>
       <input type="password" id="loginPassword" placeholder="Password" required>
-      <button onclick="loginUser()">Login</button>
+      <button id="loginButton" onclick="loginUser()">Login</button>
       <p>Don’t have an account? <span onclick="toggleForm('register')">Register here</span></p>
     </div>
 
     <div id="expenseTracker" style="display: none;">
+
       <div>
         <input type="text" id="description" placeholder="Expense Description" required>
         <input type="number" id="amount" placeholder="Amount (₹)" required min="0">
@@ -39,14 +47,13 @@
         </select>
         <button id="addButton" onclick="addExpense()">Add Expense</button>
         <button id="editButton" onclick="updateExpense()" style="display: none;">Edit Expense</button>
-
       </div>
 
       <h3>Expenses</h3>
       <ul id="expensesList"></ul>
 
       <h3>Total Expenses: ₹<span id="totalAmount">0</span></h3>
-      <button onclick="logout()">Logout</button>
+      <button id="logoutButton" onclick="logout()">Logout</button>
     </div>
   </div>
 
